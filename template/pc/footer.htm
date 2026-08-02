@@ -1,0 +1,123 @@
+<footer class="mg-footer">
+    <div class="mg-container">
+        <div class="mg-footer-grid">
+            <!-- About -->
+            <div class="mg-footer-col mg-footer-about">
+                <h3>{eyou:global name='web_name' /}</h3>
+                <p>{eyou:global name='web_description' /}</p>
+            </div>
+
+            <!-- Categories -->
+            <div class="mg-footer-col">
+                <h3>漫画分类</h3>
+                <ul>
+                    {eyou:channel type="top" id="field" row="6"}
+                    <li><a href="{$field.typeurl}" title="{$field.typename}">{$field.typename}</a></li>
+                    {/eyou:channel}
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="mg-footer-col">
+                <h3>快速导航</h3>
+                <ul>
+                    {eyou:channel type="top" id="field" row="6" offset="6"}
+                    <li><a href="{$field.typeurl}" title="{$field.typename}">{$field.typename}</a></li>
+                    {/eyou:channel}
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="mg-footer-col">
+                <h3>关于我们</h3>
+                <ul>
+                    {eyou:type typeid='1'}
+                    <li><a href="{$field.typeurl}" title="{$field.typename}">{$field.typename}</a></li>
+                    {/eyou:type}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Friend Links -->
+    <div class="mg-container">
+        <div class="mg-footer-links">
+            <p class="mg-footer-links-title">友情链接：</p>
+            {eyou:links titlelen='45' type='text'}
+            <a href="{$field.url}" {$field.target} rel="{$field.nofollow}" title="{$field.title}">{$field.title}</a>
+            {/eyou:links}
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="mg-container">
+        <div class="mg-footer-bottom">
+            <span>{eyou:global name='web_copyright' /}　{eyou:global name='web_recordnum' /}　{eyou:global name='web_garecordnum' /}</span>
+            <a href="{eyou:global name='web_basehost' /}/sitemap.xml">网站地图</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Login popup -->
+<div id="log" style="display:none;">
+    <div class="dialog" style="min-width: 418px;">
+        <div class="dialog-head">
+            <span class="dialog-close close rotate-hover"></span>
+        </div>
+        <div class="dialog-body">
+            <div class="register">
+                <div class="blank-middle"></div>
+                <div class="tab text-center">
+                  <ul>
+                    <li id="signtab1" onclick="setTab('signtab',1,2)" class="">账号登录</li>
+                  </ul>
+                </div>
+                <div id="con_signtab_1">
+                    <form method="post" id="popup_login_submit">
+                        <div class="form-group">
+                            <div class="field">
+                                <input type='text' name='username' id='username' class="input text-main radius-none" value="" data-validate="required:必填" placeholder="用户名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="field">
+                                <input type='password' name='password' id="password" class="input text-main radius-none" placeholder="密码" value=""/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="ey_login_vertify">
+                            <div class="field">
+                                <div class="input-group">
+                                    <input type='text' name='vertify' autocomplete="off" class="input text-main radius-none" placeholder="图形验证码" value=""/>
+                                    <span class="addon"><img src="{eyou:url link='api/Ajax/vertify' vars='type=users_login' /}" class="chicuele" id="imgVerifys" onclick="ey_fleshVerify();" title="看不清？点击更换验证码" align="absmiddle"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-button">
+                            <input type="hidden" name="referurl" value=""/>
+                            <input type="hidden" name="website" value="website"/>
+                            <input type="button" name="submit" onclick="popup_login_submit();" class="button bg-yellow button-large button-block border-none radius-none text-white" value="提交"/>
+                        </div>
+                        {:equal_pop_login()}
+                    </form>
+                    <p class="margin-top text-right">
+                        <a href="{:url('user/Users/reg')}">注册账号</a>&nbsp;|&nbsp;
+                        <a href="{:url('user/Users/retrieve_password')}">忘记密码</a>
+                    </p>
+                </div>
+                <div id="ey_third_party_login">
+                    <div class="blank-middle"></div>
+                    <div class="line"><span class="text-gray bg-white text-default">社交账号登录</span><hr></div>
+                    <div class="blank-small"></div>
+                    <div class="bnt-login">
+                        <a id="ey_third_party_qqlogin" title="QQ登录" href="{eyou:url link='plugins/QqLogin/login' seo_pseudo='1' seo_inlet='0' /}" class="qq"><i class="iconfont icon-qq"></i></a>
+                        <a id="ey_third_party_wxlogin" title="微信登录" href="{eyou:url link='plugins/WxLogin/login' seo_pseudo='1' seo_inlet='0' /}" class="weixin"><i class="iconfont icon-weixin"></i></a>
+                        <a id="ey_third_party_wblogin" title="微博登录" href="{eyou:url link='plugins/Wblogin/login' seo_pseudo='1' seo_inlet='0' /}" class="weibo"><i class="iconfont icon-weibo"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- WeApp plugins -->
+{eyou:weapp type='default' /}

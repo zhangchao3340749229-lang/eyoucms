@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{eyou:global name='web_title' /}_{eyou:global name='web_name' /}</title>
+<meta name="keywords" content="{eyou:global name='web_keywords' /}" />
+<meta name="description" content="{eyou:global name='web_description' /}" />
+<link href="{eyou:global name='web_ico' /}" rel="shortcut icon" type="image/x-icon" />
+{eyou:static file="skin/style/manga.css" /}
+</head>
+<body>
+<!-- 公用头部 begin -->
+{eyou:include file="header.htm" /}
+<!-- 公用头部 end -->
+
+<!-- 首页视频区域 begin -->
+<section class="mg-hero" aria-label="漫画宣传视频">
+    <div class="mg-hero-video-wrap">
+        <video
+            class="mg-hero-video"
+            muted
+            autoplay
+            loop
+            playsinline
+            preload="metadata"
+            poster="{eyou:global name='web_templets_pc' /}/skin/video/manga-intro-poster.webp"
+            data-src="{eyou:global name='web_templets_pc' /}/skin/video/manga-intro.mp4">
+            <source src="" type="video/mp4">
+        </video>
+        <div class="mg-hero-overlay">
+            <div class="mg-hero-content">
+                <h1 class="mg-hero-title">{eyou:global name='web_name' /}</h1>
+                <p class="mg-hero-desc">{eyou:global name='web_description' /}</p>
+                <div class="mg-hero-buttons">
+                    {eyou:channel type="top" id="field" row="1"}
+                    <a href="{$field.typeurl}" class="mg-btn mg-btn-primary">浏览漫画</a>
+                    {/eyou:channel}
+                    {eyou:channel type="top" id="field" row="1" offset="1"}
+                    <a href="{$field.typeurl}" class="mg-btn mg-btn-outline">最新更新</a>
+                    {/eyou:channel}
+                </div>
+            </div>
+        </div>
+        <button class="mg-video-play" aria-label="暂停视频">&#10073;&#10073;</button>
+    </div>
+    <div class="mg-hero-seo-text">
+        <div class="mg-container">
+            <p>{eyou:global name='web_name' /}是一个专注于漫画、动漫和二次元内容的在线浏览平台，提供热血、恋爱、校园、奇幻、冒险、悬疑等多种题材的原创漫画作品。在这里你可以发现最新更新的漫画、热门推荐作品和已完结的经典漫画，享受流畅的阅读体验和精致的封面展示。</p>
+        </div>
+    </div>
+</section>
+<!-- 首页视频区域 end -->
+
+<!-- 焦点推荐 begin -->
+{eyou:channel type="top" id="cat" row="1"}
+<section class="mg-section">
+    <div class="mg-container">
+        <div class="mg-section-header">
+            <h2 class="mg-section-title">焦点推荐</h2>
+            <a href="{$cat.typeurl}" class="mg-section-more">查看全部 &#8594;</a>
+        </div>
+        <div class="mg-grid">
+            {eyou:artlist flag="h" titlelen="20" infolen="60" loop="6"}
+            <article class="mg-card">
+                <a href="{$field.arcurl}" title="{$field.title}" class="mg-card-cover">
+                    {eyou:eq name="$field.is_litpic" value="1"}
+                    <img src="{$field.litpic}" alt="{$field.title}" loading="lazy" decoding="async">
+                    {eyou:else/}
+                    <img src="{eyou:global name='web_templets_pc' /}/skin/images/manga/cover-1.jpg" alt="{$field.title}" loading="lazy" decoding="async">
+                    {/eyou:eq}
+                    <span class="mg-card-badge">推荐</span>
+                    <span class="mg-card-update">{$field.update_time|MyDate='m-d',###}</span>
+                </a>
+                <div class="mg-card-body">
+                    <h3 class="mg-card-title"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></h3>
+                    <div class="mg-card-meta">
+                        <span class="mg-card-cat">{$field.typename}</span>
+                        <span>{$field.author}</span>
+                    </div>
+                    <p class="mg-card-desc">{$field.seo_description}</p>
+                </div>
+            </article>
+            {/eyou:artlist}
+        </div>
+    </div>
+</section>
+{/eyou:channel}
+<!-- 焦点推荐 end -->
+
+<!-- 最新更新 begin -->
+{eyou:channel type="top" id="cat" row="1" offset="1"}
+<section class="mg-section" style="background:#fff;">
+    <div class="mg-container">
+        <div class="mg-section-header">
+            <h2 class="mg-section-title">最新更新</h2>
+            <a href="{$cat.typeurl}" class="mg-section-more">查看全部 &#8594;</a>
+        </div>
+        <div class="mg-grid">
+            {eyou:artlist orderby="new" titlelen="20" infolen="60" loop="12"}
+            <article class="mg-card">
+                <a href="{$field.arcurl}" title="{$field.title}" class="mg-card-cover">
+                    {eyou:eq name="$field.is_litpic" value="1"}
+                    <img src="{$field.litpic}" alt="{$field.title}" loading="lazy" decoding="async">
+                    {eyou:else/}
+                    <img src="{eyou:global name='web_templets_pc' /}/skin/images/manga/cover-{$i}.jpg" alt="{$field.title}" loading="lazy" decoding="async">
+                    {/eyou:eq}
+                    <span class="mg-card-badge serial">更新中</span>
+                    <span class="mg-card-update">{$field.update_time|MyDate='m-d',###}</span>
+                </a>
+                <div class="mg-card-body">
+                    <h3 class="mg-card-title"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></h3>
+                    <div class="mg-card-meta">
+                        <span class="mg-card-cat">{$field.typename}</span>
+                        <span>{$field.author}</span>
+                    </div>
+                </div>
+            </article>
+            {/eyou:artlist}
+        </div>
+    </div>
+</section>
+{/eyou:channel}
+<!-- 最新更新 end -->
+
+<!-- 热门漫画 begin -->
+{eyou:channel type="top" id="cat" row="1" offset="2"}
+<section class="mg-section">
+    <div class="mg-container">
+        <div class="mg-section-header">
+            <h2 class="mg-section-title">热门漫画</h2>
+            <a href="{$cat.typeurl}" class="mg-section-more">查看全部 &#8594;</a>
+        </div>
+        <div class="mg-grid">
+            {eyou:artlist flag="r" orderby="hot" titlelen="20" infolen="60" loop="6"}
+            <article class="mg-card">
+                <a href="{$field.arcurl}" title="{$field.title}" class="mg-card-cover">
+                    {eyou:eq name="$field.is_litpic" value="1"}
+                    <img src="{$field.litpic}" alt="{$field.title}" loading="lazy" decoding="async">
+                    {eyou:else/}
+                    <img src="{eyou:global name='web_templets_pc' /}/skin/images/manga/cover-{$i}.jpg" alt="{$field.title}" loading="lazy" decoding="async">
+                    {/eyou:eq}
+                    <span class="mg-card-badge">热门</span>
+                    <span class="mg-card-update">{$field.click}次浏览</span>
+                </a>
+                <div class="mg-card-body">
+                    <h3 class="mg-card-title"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></h3>
+                    <div class="mg-card-meta">
+                        <span class="mg-card-cat">{$field.typename}</span>
+                        <span>{$field.author}</span>
+                    </div>
+                    <p class="mg-card-desc">{$field.seo_description}</p>
+                </div>
+            </article>
+            {/eyou:artlist}
+        </div>
+    </div>
+</section>
+{/eyou:channel}
+<!-- 热门漫画 end -->
+
+<!-- 漫画分类推荐 begin -->
+<section class="mg-section" style="background:#fff;">
+    <div class="mg-container">
+        <div class="mg-section-header">
+            <h2 class="mg-section-title">漫画分类</h2>
+        </div>
+        <div class="mg-cat-pills">
+            {eyou:channel type="son" id="field"}
+            <a href="{$field.typeurl}" class="mg-cat-pill" title="{$field.typename}">{$field.typename}</a>
+            {/eyou:channel}
+        </div>
+        <div class="mg-grid">
+            {eyou:artlist orderby="rand" titlelen="20" infolen="60" loop="6"}
+            <article class="mg-card">
+                <a href="{$field.arcurl}" title="{$field.title}" class="mg-card-cover">
+                    {eyou:eq name="$field.is_litpic" value="1"}
+                    <img src="{$field.litpic}" alt="{$field.title}" loading="lazy" decoding="async">
+                    {eyou:else/}
+                    <img src="{eyou:global name='web_templets_pc' /}/skin/images/manga/cover-{$i}.jpg" alt="{$field.title}" loading="lazy" decoding="async">
+                    {/eyou:eq}
+                    <span class="mg-card-badge serial">连载</span>
+                </a>
+                <div class="mg-card-body">
+                    <h3 class="mg-card-title"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></h3>
+                    <div class="mg-card-meta">
+                        <span class="mg-card-cat">{$field.typename}</span>
+                        <span>{$field.author}</span>
+                    </div>
+                </div>
+            </article>
+            {/eyou:artlist}
+        </div>
+    </div>
+</section>
+<!-- 漫画分类推荐 end -->
+
+<!-- 完结漫画 begin -->
+{eyou:channel type="top" id="cat" row="1" offset="3"}
+<section class="mg-section">
+    <div class="mg-container">
+        <div class="mg-section-header">
+            <h2 class="mg-section-title">完结漫画</h2>
+            <a href="{$cat.typeurl}" class="mg-section-more">查看全部 &#8594;</a>
+        </div>
+        <div class="mg-grid">
+            {eyou:artlist flag="a" orderby="hot" titlelen="20" infolen="60" loop="6"}
+            <article class="mg-card">
+                <a href="{$field.arcurl}" title="{$field.title}" class="mg-card-cover">
+                    {eyou:eq name="$field.is_litpic" value="1"}
+                    <img src="{$field.litpic}" alt="{$field.title}" loading="lazy" decoding="async">
+                    {eyou:else/}
+                    <img src="{eyou:global name='web_templets_pc' /}/skin/images/manga/cover-{$i}.jpg" alt="{$field.title}" loading="lazy" decoding="async">
+                    {/eyou:eq}
+                    <span class="mg-card-badge complete">完结</span>
+                </a>
+                <div class="mg-card-body">
+                    <h3 class="mg-card-title"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></h3>
+                    <div class="mg-card-meta">
+                        <span class="mg-card-cat">{$field.typename}</span>
+                        <span>{$field.author}</span>
+                    </div>
+                </div>
+            </article>
+            {/eyou:artlist}
+        </div>
+    </div>
+</section>
+{/eyou:channel}
+<!-- 完结漫画 end -->
+
+<!-- 漫画排行榜 begin -->
+<section class="mg-section" style="background:#fff;">
+    <div class="mg-container">
+        <div class="mg-section-header">
+            <h2 class="mg-section-title">漫画排行榜</h2>
+        </div>
+        <div class="mg-rank-grid">
+            <div class="mg-rank-col">
+                <h3 class="mg-rank-title">周榜</h3>
+                <div class="mg-rank-list">
+                    {eyou:artlist orderby="weekcc" titlelen="15" loop="5"}
+                    <div class="mg-rank-item">
+                        <span class="mg-rank-num">{$i}</span>
+                        <a href="{$field.arcurl}" class="mg-rank-thumb" title="{$field.title}">
+                            {eyou:eq name="$field.is_litpic" value="1"}
+                            <img src="{$field.litpic}" alt="{$field.title}" loading="lazy" decoding="async">
+                            {eyou:else/}
+                            <img src="{eyou:global name='web_templets_pc' /}/skin/images/manga/cover-{$i}.jpg" alt="{$field.title}" loading="lazy" decoding="async">
+                            {/eyou:eq}
+                        </a>
+                        <div class="mg-rank-info">
+                            <p class="mg-rank-name"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></p>
+                            <p class="mg-rank-meta">{$field.click}次浏览</p>
+                        </div>
+                    </div>
+                    {/eyou:artlist}
+                </div>
+            </div>
+            <div class="mg-rank-col">
+                <h3 class="mg-rank-title">月榜</h3>
+                <div class="mg-rank-list">
+                    {eyou:artlist orderby="monthcc" titlelen="15" loop="5"}
+                    <div class="mg-rank-item">
+                        <span class="mg-rank-num">{$i}</span>
+                        <a href="{$field.arcurl}" class="mg-rank-thumb" title="{$field.title}">
+                            {eyou:eq name="$field.is_litpic" value="1"}
+                            <img src="{$field.litpic}" alt="{$field.title}" loading="lazy" decoding="async">
+                            {eyou:else/}
+                            <img src="{eyou:global name='web_templets_pc' /}/skin/images/manga/cover-{$i}.jpg" alt="{$field.title}" loading="lazy" decoding="async">
+                            {/eyou:eq}
+                        </a>
+                        <div class="mg-rank-info">
+                            <p class="mg-rank-name"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></p>
+                            <p class="mg-rank-meta">{$field.click}次浏览</p>
+                        </div>
+                    </div>
+                    {/eyou:artlist}
+                </div>
+            </div>
+            <div class="mg-rank-col">
+                <h3 class="mg-rank-title">总榜</h3>
+                <div class="mg-rank-list">
+                    {eyou:artlist orderby="click" titlelen="15" loop="5"}
+                    <div class="mg-rank-item">
+                        <span class="mg-rank-num">{$i}</span>
+                        <a href="{$field.arcurl}" class="mg-rank-thumb" title="{$field.title}">
+                            {eyou:eq name="$field.is_litpic" value="1"}
+                            <img src="{$field.litpic}" alt="{$field.title}" loading="lazy" decoding="async">
+                            {eyou:else/}
+                            <img src="{eyou:global name='web_templets_pc' /}/skin/images/manga/cover-{$i}.jpg" alt="{$field.title}" loading="lazy" decoding="async">
+                            {/eyou:eq}
+                        </a>
+                        <div class="mg-rank-info">
+                            <p class="mg-rank-name"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></p>
+                            <p class="mg-rank-meta">{$field.click}次浏览</p>
+                        </div>
+                    </div>
+                    {/eyou:artlist}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 漫画排行榜 end -->
+
+<!-- 漫画资讯 begin -->
+{eyou:channel type="top" id="cat" row="1" offset="4"}
+<section class="mg-section">
+    <div class="mg-container">
+        <div class="mg-section-header">
+            <h2 class="mg-section-title">漫画资讯</h2>
+            <a href="{$cat.typeurl}" class="mg-section-more">查看全部 &#8594;</a>
+        </div>
+        <div class="mg-news-grid">
+            {eyou:artlist typeid="$cat.id" titlelen="25" infolen="80" loop="3"}
+            <article class="mg-news-card">
+                <a href="{$field.arcurl}" title="{$field.title}" class="mg-news-cover">
+                    {eyou:eq name="$field.is_litpic" value="1"}
+                    <img src="{$field.litpic}" alt="{$field.title}" loading="lazy" decoding="async">
+                    {eyou:else/}
+                    <img src="{eyou:global name='web_templets_pc' /}/skin/images/manga/cover-{$i}.jpg" alt="{$field.title}" loading="lazy" decoding="async">
+                    {/eyou:eq}
+                </a>
+                <div class="mg-news-body">
+                    <h3 class="mg-news-title"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></h3>
+                    <p class="mg-news-desc">{$field.seo_description}</p>
+                    <p class="mg-news-date">{$field.update_time|MyDate='Y-m-d',###}</p>
+                </div>
+            </article>
+            {/eyou:artlist}
+        </div>
+    </div>
+</section>
+{/eyou:channel}
+<!-- 漫画资讯 end -->
+
+<!-- 公用底部 begin -->
+{eyou:include file="footer.htm" /}
+<!-- 公用底部 end -->
+
+{eyou:static file="skin/js/manga.js" /}
+</body>
+</html>

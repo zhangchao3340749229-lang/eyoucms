@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{$eyou.field.seo_title}_{eyou:global name='web_name' /}</title>
+<meta name="keywords" content="{$eyou.field.seo_keywords}" />
+<meta name="description" content="{$eyou.field.seo_description}" />
+<link href="{eyou:global name='web_ico' /}" rel="shortcut icon" type="image/x-icon" />
+{eyou:static file="skin/style/manga.css" /}
+</head>
+<body>
+<!-- 公用头部 begin -->
+{eyou:include file="header.htm" /}
+<!-- 公用头部 end -->
+
+<!-- 面包屑 begin -->
+<div class="mg-container">
+    <nav class="mg-breadcrumb" aria-label="面包屑导航">
+        <a href="{eyou:global name='web_cmsurl' /}">首页</a>
+        <span>&#8250;</span>
+        {eyou:position/}
+    </nav>
+</div>
+<!-- 面包屑 end -->
+
+<!-- 栏目头部 begin -->
+<section class="mg-container">
+    <div class="mg-cat-header">
+        <h1>{$eyou.field.typename}</h1>
+        {eyou:notempty name="$eyou.field.seo_description"}
+        <p>{$eyou.field.seo_description}</p>
+        {/eyou:notempty}
+    </div>
+</section>
+<!-- 栏目头部 end -->
+
+<!-- 子栏目导航 begin -->
+{eyou:models type="first" id="field2" currentstyle="active"}
+{eyou:gt name="$eyou.field.has_children" value="0"}
+<div class="mg-container">
+    <div class="mg-sub-nav">
+        <a href="{$eyou.field.ptypeurl}" class="{$field2.currentstyle}">全部</a>
+        {eyou:models type="first" id="field2" currentstyle="active"}
+        <a href="{$field2.typeurl}" class="{$field2.currentstyle}">{$field2.typename}</a>
+        {/eyou:models}
+    </div>
+</div>
+{/eyou:gt}
+{/eyou:models}
+<!-- 子栏目导航 end -->
+
+<!-- 漫画列表 begin -->
+<section class="mg-container" style="padding-bottom:40px;">
+    {eyou:notempty name="$eyou.field.has_children"}
+    {eyou:list titlelen='20' pagesize='18' infolen='60' empty=''}
+    <div class="mg-grid" style="margin-bottom:24px;">
+        <article class="mg-card">
+            <a href="{$field.arcurl}" title="{$field.title}" class="mg-card-cover">
+                {eyou:eq name="$field.is_litpic" value="1"}
+                <img src="{$field.litpic}" alt="{$field.title}" loading="lazy" decoding="async">
+                {eyou:else/}
+                <img src="{eyou:global name='web_templets_pc' /}/skin/images/manga/cover-1.jpg" alt="{$field.title}" loading="lazy" decoding="async">
+                {/eyou:eq}
+                <span class="mg-card-badge serial">连载</span>
+                <span class="mg-card-update">{$field.update_time|MyDate='m-d',###}</span>
+            </a>
+            <div class="mg-card-body">
+                <h3 class="mg-card-title"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></h3>
+                <div class="mg-card-meta">
+                    <span class="mg-card-cat">{$field.typename}</span>
+                    <span>{$field.author}</span>
+                </div>
+                <p class="mg-card-desc">{$field.seo_description}</p>
+            </div>
+        </article>
+    </div>
+    {/eyou:list}
+
+    <!-- 空内容提示 -->
+    {eyou:empty name="$eyou.field.has_children"}
+    {eyou:list titlelen='20' pagesize='18' infolen='60' empty='暂无漫画内容'}
+    <div class="mg-grid" style="margin-bottom:24px;">
+        <article class="mg-card">
+            <a href="{$field.arcurl}" title="{$field.title}" class="mg-card-cover">
+                {eyou:eq name="$field.is_litpic" value="1"}
+                <img src="{$field.litpic}" alt="{$field.title}" loading="lazy" decoding="async">
+                {eyou:else/}
+                <img src="{eyou:global name='web_templets_pc' /}/skin/images/manga/cover-1.jpg" alt="{$field.title}" loading="lazy" decoding="async">
+                {/eyou:eq}
+                <span class="mg-card-badge serial">连载</span>
+                <span class="mg-card-update">{$field.update_time|MyDate='m-d',###}</span>
+            </a>
+            <div class="mg-card-body">
+                <h3 class="mg-card-title"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></h3>
+                <div class="mg-card-meta">
+                    <span class="mg-card-cat">{$field.typename}</span>
+                    <span>{$field.author}</span>
+                </div>
+                <p class="mg-card-desc">{$field.seo_description}</p>
+            </div>
+        </article>
+    </div>
+    {/eyou:list}
+    {/eyou:empty}
+    {/eyou:notempty}
+
+    <!-- 分页 begin -->
+    <div class="mg-pagination">
+        {eyou:pagelist listitem='index,pre,pageno,next,end' listsize='5' /}
+    </div>
+    <!-- 分页 end -->
+</section>
+<!-- 漫画列表 end -->
+
+<!-- 公用底部 begin -->
+{eyou:include file="footer.htm" /}
+<!-- 公用底部 end -->
+
+{eyou:static file="skin/js/manga.js" /}
+</body>
+</html>

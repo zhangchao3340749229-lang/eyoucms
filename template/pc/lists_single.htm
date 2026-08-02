@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{$eyou.field.seo_title}_{eyou:global name='web_name' /}</title>
+<meta name="keywords" content="{$eyou.field.seo_keywords}" />
+<meta name="description" content="{$eyou.field.seo_description}" />
+<link href="{eyou:global name='web_ico' /}" rel="shortcut icon" type="image/x-icon" />
+{eyou:static file="skin/style/manga.css" /}
+</head>
+<body>
+<!-- 公用头部 begin -->
+{eyou:include file="header.htm" /}
+<!-- 公用头部 end -->
+
+<!-- 面包屑 begin -->
+<div class="mg-container">
+    <nav class="mg-breadcrumb" aria-label="面包屑导航">
+        <a href="{eyou:global name='web_cmsurl' /}">首页</a>
+        <span>&#8250;</span>
+        {eyou:position/}
+    </nav>
+</div>
+<!-- 面包屑 end -->
+
+<!-- 单页内容 begin -->
+<section class="mg-container" style="padding-bottom:60px;">
+    <div class="mg-cat-header">
+        <h1>{$eyou.field.typename}</h1>
+        {eyou:notempty name="$eyou.field.seo_description"}
+        <p>{$eyou.field.seo_description}</p>
+        {/eyou:notempty}
+    </div>
+    <div class="mg-detail-content">
+        {$eyou.field.content}
+    </div>
+</section>
+<!-- 单页内容 end -->
+
+<!-- 公用底部 begin -->
+{eyou:include file="footer.htm" /}
+<!-- 公用底部 end -->
+
+{eyou:static file="skin/js/manga.js" /}
+</body>
+</html>
