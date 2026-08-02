@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>搜索：{$eyou.field.keywords}的结果_{eyou:global name='web_name' /}</title>
+<meta name="keywords" content="{$eyou.field.keywords},漫画搜索,动漫搜索" />
+<meta name="description" content="在{eyou:global name='web_name' /}搜索{$eyou.field.keywords}的相关漫画结果，包含热血、恋爱、校园、奇幻等多种题材。" />
+<link href="{eyou:global name='web_ico' /}" rel="shortcut icon" type="image/x-icon" />
+{eyou:static file="skin/style/manga.css" /}
+</head>
+<body>
+{eyou:include file="header.htm" /}
+
+<div class="mg-container">
+    <nav class="mg-breadcrumb" aria-label="面包屑导航">
+        <a href="{eyou:global name='web_cmsurl' /}">首页</a><span>&#8250;</span><span>搜索结果</span>
+    </nav>
+</div>
+
+<div class="mg-container">
+    <div class="mg-search-result-info">搜索 "<strong>{$eyou.field.keywords}</strong>" 的相关漫画结果</div>
+</div>
+
+<section class="mg-container" style="padding-bottom:40px;">
+    {eyou:list titlelen='20' pagesize='12' infolen='60' empty=''}
+    <div class="mg-grid" style="margin-bottom:24px;">
+        <article class="mg-card">
+            <a href="{$field.arcurl}" title="{$field.title}" class="mg-card-cover">
+                {eyou:eq name="$field.is_litpic" value="1"}<img src="{$field.litpic}" alt="{$field.title}" loading="lazy" decoding="async">{eyou:else/}<img src="{eyou:global name='web_templets_pc' /}/skin/images/manga/cover-1.jpg" alt="{$field.title}" loading="lazy" decoding="async">{/eyou:eq}
+                <span class="mg-card-badge serial">连载</span>
+                <span class="mg-card-update">{$field.update_time|MyDate='m-d',###}</span>
+            </a>
+            <div class="mg-card-body">
+                <h3 class="mg-card-title"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></h3>
+                <div class="mg-card-meta"><span class="mg-card-cat">{$field.typename}</span><span>{$field.author}</span></div>
+                <p class="mg-card-desc">{$field.seo_description}</p>
+            </div>
+        </article>
+    </div>
+    {/eyou:list}
+    {eyou:empty name="$eyou.field.TotalPage"}
+    <div class="mg-empty"><h3>未找到相关漫画</h3><p>没有找到与"{$eyou.field.keywords}"相关的漫画内容，请尝试其他关键词。</p></div>
+    {/eyou:empty}
+    <div class="mg-pagination">{eyou:pagelist listitem='index,pre,pageno,next,end' listsize='5' /}</div>
+</section>
+
+{eyou:include file="footer.htm" /}
+{eyou:static file="skin/js/manga.js" /}
+</body>
+</html>

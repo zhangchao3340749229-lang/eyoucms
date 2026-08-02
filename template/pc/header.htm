@@ -1,0 +1,66 @@
+{eyou:static file="skin/js/jquery.min.js" /}
+{eyou:global name='ey_common_hidden' /}
+
+<header class="mg-header">
+    <div class="mg-container">
+        <div class="mg-header-inner">
+            <div class="mg-logo">
+                <a href="{eyou:global name='web_basehost' /}">
+                    {eyou:notempty name='$eyou.global.web_logo'}
+                    <img src="{eyou:global name='web_logo' /}" alt="{eyou:global name='web_name' /}"/>
+                    {/eyou:notempty}
+                    <span class="mg-logo-text">{eyou:global name='web_name' /}</span>
+                </a>
+            </div>
+
+            <nav class="mg-nav" id="mgNav">
+                <ul class="mg-nav-list">
+                    <li class="mg-nav-item{eyou:eq name='$Request.param.m' value='Index'} active{/eyou:eq}">
+                        <a href="{eyou:global name='web_cmsurl' /}" class="mg-nav-link">首页</a>
+                    </li>
+                    {eyou:channel type="top" id="field" currentstyle="active"}
+                    <li class="mg-nav-item {$field.currentstyle}">
+                        <a href="{$field.typeurl}" class="mg-nav-link">
+                            {$field.typename}
+                            {eyou:notempty name="$field.children"}<span class="mg-nav-arrow">&#9662;</span>{/eyou:notempty}
+                        </a>
+                        {eyou:notempty name="$field.children"}
+                        <div class="mg-dropdown">
+                            {eyou:channel name="$field.children" id="field2"}
+                            <a href="{$field2.typeurl}">{$field2.typename}</a>
+                            {/eyou:channel}
+                        </div>
+                        {/eyou:notempty}
+                    </li>
+                    {/eyou:channel}
+                </ul>
+            </nav>
+
+            <div class="mg-search" id="mgSearch">
+                {eyou:searchform type='default'}
+                <form method="get" action="{$field.action}" class="mg-search-form" onsubmit="return searchForm();">
+                    <input type="text" name="keywords" id="keywords" class="mg-search-input" value="" placeholder="搜索漫画..."/>
+                    <button type="submit" class="mg-search-btn" aria-label="搜索">&#128269;</button>
+                    {$field.hidden}
+                </form>
+                {/eyou:searchform}
+            </div>
+
+            <a href="javascript:void(0)" class="mg-search-toggle" id="mgSearchToggle" aria-label="搜索" style="display:none;color:var(--mg-text);font-size:20px;flex-shrink:0;">&#128269;</a>
+
+            <button class="mg-menu-toggle" id="mgMenuToggle" aria-label="菜单" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<script type="text/javascript">
+    function checkSearchToggle() {
+        var st = document.getElementById('mgSearchToggle');
+        if (st) st.style.display = window.innerWidth <= 768 ? 'block' : 'none';
+    }
+    checkSearchToggle();
+    window.addEventListener('resize', checkSearchToggle);
+    var GetUploadify_url = "{:url('Uploadify/upload')}";
+</script>
